@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: sumanth12-afk/node-cicd-demo
 
 jobs:
   test-and-build:
@@ -67,15 +67,16 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build and Push Docker Image with SHA tag
-        run: |
-          docker build -t ghcr.io/sumanth12-afk/node-cicd-demo:sha-${{ github.sha }} .
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/sumanth12-afk/node-cicd-demo:sha-${{ github.sha }}
-
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: false
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
 
       - name: Upload Trivy scan results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-results.sarif'
 
@@ -84,7 +85,7 @@ jobs:
           NEW_IMAGE_TAG: sha-${{ github.sha }}
         run: |
           sed -i "s|image: .*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${NEW_IMAGE_TAG}|" k8s/deployment.yaml
-          
+
       - name: Commit and push if changed
         run: |
           git config --global user.name 'GitHub Actions'
