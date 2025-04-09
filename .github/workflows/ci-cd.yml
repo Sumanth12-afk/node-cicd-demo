@@ -92,4 +92,5 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add k8s/deployment.yaml
           git commit -m "Update deployment image to ${NEW_IMAGE_TAG}" || exit 0
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
