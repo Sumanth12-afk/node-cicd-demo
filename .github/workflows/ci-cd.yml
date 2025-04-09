@@ -14,7 +14,7 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       security-events: write
 
@@ -93,4 +93,3 @@ jobs:
           git add k8s/deployment.yaml
           git commit -m "Update deployment image to ${NEW_IMAGE_TAG}" || exit 0
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
