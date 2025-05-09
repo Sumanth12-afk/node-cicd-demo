@@ -1,68 +1,58 @@
-📁 Repository Structure & File Purposes
-1. .github/workflows/
-Contains GitHub Actions workflow files that define automated processes triggered by repository events.
+🚀 Node CI/CD Demo
+This project is a complete CI/CD demonstration for a Node.js application using GitHub Actions, Docker, and Kubernetes. It automates testing, linting, building, scanning, and deploying the app to a Kubernetes cluster.
 
-CI/CD Workflow: Automates tasks like testing, linting, building, Docker image creation, vulnerability scanning, and deployment upon code changes.
+📁 Folder Structure
+bash
+Copy
+Edit
+node-cicd-demo/
+├── .github/workflows/        # GitHub Actions for CI/CD
+│   └── main.yml              # Main workflow file
+├── k8s/                      # Kubernetes manifests
+│   └── deployment.yaml       # Kubernetes deployment config
+├── src/                      # Application source code
+│   └── index.ts              # Main Node.js/Express file
+├── .eslintrc.json            # ESLint configuration
+├── babel.config.js           # Babel configuration for transpiling
+├── jest.config.js            # Jest test configuration
+├── tsconfig.json             # TypeScript compiler configuration
+├── Dockerfile                # Docker image build instructions
+├── package.json              # Node.js project metadata & scripts
+├── package-lock.json         # Dependency lock file
+└── README.md                 # Project documentation
+✅ Features
+CI/CD pipeline using GitHub Actions
 
-2. src/
-Houses the application's source code.
-GitHub
+Linting with ESLint
 
-index.ts: Main entry point of the application.
+Unit testing with Jest
 
-3. k8s/
-Contains Kubernetes manifests for deploying the application.
+TypeScript support
 
-deployment.yaml: Defines the deployment configuration for Kubernetes.
-GitHub
-+5
-GitHub
-+5
-reflectoring.io
-+5
+Docker image build and push
 
-4. Configuration Files
-.eslintrc.json: ESLint configuration for code quality and style enforcement.
+Vulnerability scanning with Trivy
 
-babel.config.js: Babel configuration for transpiling TypeScript to JavaScript.
+Kubernetes deployment via kubectl
 
-jest.config.js: Jest configuration for running unit tests.
+🔧 Prerequisites
+Make sure you have the following installed:
 
-tsconfig.json: TypeScript compiler options.
-
-5. Project Metadata
-package.json & package-lock.json: Define project metadata, scripts, and dependencies.
-
-6. Dockerfile
-Instructions to build a Docker image of the application.
-reflectoring.io
-
-7. .gitignore
-Specifies files and directories to be ignored by Git.
-
-8. README.md
-Provides an overview of the project, setup instructions, and CI/CD pipeline details.
-
-🛠️ Prerequisites
-To work with this project locally, ensure the following are installed:
-
-Node.js
+Node.js (v16+ recommended)
 
 npm
 
 Docker
-reflectoring.io
-+1
-The GitHub Blog
-+1
 
 Git
 
 Kubernetes CLI (kubectl)
 
-Trivy for vulnerability scanning
+GitHub account and access to GitHub Actions
 
-🚀 Getting Started
+Trivy (for vulnerability scanning)
+
+🔨 Local Setup
 1. Clone the Repository
 bash
 Copy
@@ -74,88 +64,81 @@ bash
 Copy
 Edit
 npm install
-3. Run in Development Mode
+3. Run the App Locally
 bash
 Copy
 Edit
 npm run dev
-4. Run Tests
+App will start on http://localhost:3000
+
+🧪 Testing & Linting
+Run Tests
 bash
 Copy
 Edit
 npm test
-5. Lint the Code
+Lint Code
 bash
 Copy
 Edit
 npm run lint
-6. Build the Application
+🐳 Docker Build & Run
+Build Docker Image
 bash
 Copy
 Edit
-npm run build
+docker build -t node-cicd-demo .
+Run Container
+bash
+Copy
+Edit
+docker run -p 3000:3000 node-cicd-demo
 ⚙️ CI/CD Pipeline Overview
-The CI/CD pipeline is configured to trigger on:
-
-Pushes to the main branch
-
-Pull requests targeting the main branch
-GitHub
+The GitHub Actions workflow (.github/workflows/main.yml) is triggered on push or pull request to main.
 
 Pipeline Steps:
-Checkout Code: Retrieve the latest code from the repository.
+Checkout Code
 
-Install Dependencies: Run npm install to install project dependencies.
+Install Dependencies
 
-Linting: Execute ESLint to ensure code quality.
+Linting
 
-Testing: Run unit tests using Jest.
-GitHub
+Unit Testing
 
-Build: Compile TypeScript to JavaScript.
-Medium
-+2
-Teco Tutorials
-+2
-GitHub
-+2
+Build (Transpile)
 
-Docker Image Creation: Build a Docker image of the application.
-GitHub
+Docker Build
 
-Vulnerability Scanning: Use Trivy to scan the Docker image for vulnerabilities.
-GitHub
-+1
-The GitHub Blog
-+1
+Trivy Scan
 
-Push to GitHub Container Registry: Upload the Docker image to GitHub's Container Registry.
+Push to GitHub Container Registry
 
-Deploy to Kubernetes: Apply Kubernetes manifests to deploy the application.
+Deploy to Kubernetes using kubectl
 
-🔐 GitHub Secrets Configuration
-To enable the CI/CD pipeline, set the following secrets in your GitHub repository:
+🔐 GitHub Secrets Required
+Set the following secrets in your GitHub repo:
 
-GHCR_USERNAME: Your GitHub username.
-GitHub
-+1
-LogRocket Blog
-+1
-
-GHCR_TOKEN: A GitHub Personal Access Token with write:packages and read:packages scopes.
-
-KUBE_CONFIG: Base64-encoded Kubernetes configuration file content.
-
-TRIVY_TOKEN: (Optional) Token for Trivy if required for private repositories.
-
-📦 Docker Image Management
-The Dockerfile defines the steps to build the application's Docker image. The CI/CD pipeline automates the building and pushing of this image to GitHub's Container Registry.
-DEV Community
+Secret Name	Description
+GHCR_USERNAME	Your GitHub username
+GHCR_TOKEN	GitHub PAT with write:packages permission
+KUBE_CONFIG	Base64-encoded kubeconfig for your cluster
+TRIVY_TOKEN	(Optional) Token for Trivy (if needed)
 
 ☸️ Kubernetes Deployment
-The k8s/deployment.yaml file contains the Kubernetes deployment configuration. The CI/CD pipeline applies this configuration to update the application deployment in the Kubernetes cluster.
+To deploy manually:
 
-📄 Summary
-This repository exemplifies a robust CI/CD setup for a Node.js microservice, integrating best practices for code quality, testing, containerization, security, and deployment. By leveraging GitHub Actions, Docker, Trivy, and Kubernetes, it provides an automated and efficient workflow for modern application development and deployment.
+bash
+Copy
+Edit
+kubectl apply -f k8s/deployment.yaml
+The deployment file includes configuration for replicas, container image, ports, and more.
 
-For more details, visit the repository: Sumanth12-afk/node-cicd-demo
+📦 Scripts (from package.json)
+Script	Description
+dev	Start app using ts-node-dev
+lint	Run ESLint
+test	Run Jest unit tests
+build	Compile TypeScript to JS
+
+📞 Contact
+For questions or support, please raise an issue in the repository.
