@@ -1,115 +1,215 @@
-🚀 Node CI/CD Demo
-This project is a complete CI/CD demonstration for a Node.js application using GitHub Actions, Docker, and Kubernetes. It automates testing, linting, building, scanning, and deploying the app to a Kubernetes cluster.
-________________________________________
-📁 Folder Structure
+Node.js CI/CD Demo
+A modern Node.js microservice that demonstrates a complete CI/CD pipeline using GitHub Actions, Docker, and Kubernetes. This project showcases best practices in DevOps automation, including testing, linting, containerization, security scanning, and automated deployment.
+
+🚀 Features
+TypeScript-based Node.js microservice
+
+Unit testing with Jest
+
+Code quality checks using ESLint
+
+Docker image creation and push to GitHub Container Registry (GHCR)
+
+Security scanning with Trivy
+
+Automated deployment to Kubernetes cluster
+
+CI/CD pipeline powered by GitHub Actions
+GitHub
+DEV Community
+
+📁 Project Structure
+bash
+Copy
+Edit
 
 node-cicd-demo/
-├── .github/workflows/        # GitHub Actions workflows
-│   └── main.yml              # CI/CD pipeline configuration
-├── k8s/                      # Kubernetes manifests
-│   └── deployment.yaml       # App deployment configuration
-├── src/                      # Node.js source code
-│   └── index.ts              # Entry point of the app
-├── .eslintrc.json            # ESLint config
-├── babel.config.js           # Babel transpiler config
-├── jest.config.js            # Jest unit test config
-├── tsconfig.json             # TypeScript config
-├── Dockerfile                # Docker image definition
-├── package.json              # Project dependencies & scripts
-├── package-lock.json         # Dependency versions
-└── README.md                 # Project documentation
-________________________________________
-✅ Features
-•	GitHub Actions CI/CD pipeline
-•	TypeScript + Babel for development
-•	ESLint for code quality
-•	Jest for unit testing
-•	Docker containerization
-•	Vulnerability scanning with Trivy
-•	Kubernetes deployment via manifests
-________________________________________
-🔧 Prerequisites
-Make sure you have these installed:
-•	Node.js (v16+)
-•	npm
-•	Docker
-•	Git
-•	kubectl
-•	Trivy
-•	GitHub account with Actions enabled
-________________________________________
-🛠️ Setup Instructions
-1. Clone the Repository
+├── .github/workflows/    # CI/CD workflows
+├── k8s/                  # Kubernetes manifests
+├── src/                  # Application source code
+├── Dockerfile            # Docker build instructions
+├── jest.config.js        # Jest configuration
+├── tsconfig.json         # TypeScript configuration
+├── package.json          # Project metadata and scripts
+└── README.md             # Project documentation
+🛠️ Technologies Used
+Node.js
+
+TypeScript
+
+Jest
+
+ESLint
+
+Docker
+
+GitHub Actions
+
+Trivy
+
+Kubernetes
+DEV Community
++3
+Teco Tutorials
++3
+LogRocket Blog
++3
+Medium
++2
+Medium
++2
+DEV Community
++2
+GitHub
++1
+LogRocket Blog
++1
+
+⚙️ Getting Started
+Prerequisites
+Node.js (v14 or higher)
+
+Docker
+
+kubectl configured for your cluster
+
+Installation
+Clone the repository:
+
 bash
-CopyEdit
+Copy
+Edit
 git clone https://github.com/Sumanth12-afk/node-cicd-demo.git
 cd node-cicd-demo
-2. Install Dependencies
+Install dependencies:
+
 bash
-CopyEdit
+Copy
+Edit
 npm install
-3. Run the Application Locally
+LogRocket Blog
+
+Run the application in development mode:
+
 bash
-CopyEdit
+Copy
+Edit
 npm run dev
-Visit http://localhost:3000 in your browser.
-________________________________________
-🧪 Testing & Linting
-Run Tests
+🧪 Running Tests and Linting
+Run unit tests:
+
 bash
-CopyEdit
+Copy
+Edit
 npm test
-Lint the Code
+Run ESLint:
+
 bash
-CopyEdit
+Copy
+Edit
 npm run lint
-________________________________________
-🐳 Docker Commands
+Build the application:
+
+bash
+Copy
+Edit
+npm run build
+DEV Community
++4
+Teco Tutorials
++4
+LogRocket Blog
++4
+
+🔄 CI/CD Pipeline Overview
+The CI/CD pipeline is defined using GitHub Actions and is triggered on:
+Teco Tutorials
++2
+LogRocket Blog
++2
+DEV Community
++2
+
+Pushes to the main branch
+
+Pull requests targeting the main branch
+LogRocket Blog
++1
+Teco Tutorials
++1
+
+Pipeline Steps
+Checkout Code: Retrieves the latest code from the repository.
+
+Install Dependencies: Installs project dependencies using npm.
+
+Linting: Checks code quality using ESLint.
+
+Testing: Runs unit tests with Jest.
+
+Build: Compiles TypeScript to JavaScript.
+
+Docker Build: Builds a Docker image of the application.
+
+Security Scan: Scans the Docker image for vulnerabilities using Trivy.
+
+Push to GHCR: Pushes the Docker image to GitHub Container Registry.
+
+Deploy to Kubernetes: Applies Kubernetes manifests to deploy the application.
+GitHub
++1
+GitHub
++1
+Teco Tutorials
+
+🐳 Docker Usage
 Build Docker Image
 bash
-CopyEdit
-docker build -t node-cicd-demo .
+Copy
+Edit
+docker build -t ghcr.io/<your-username>/node-cicd-demo:latest .
 Run Docker Container
 bash
-CopyEdit
-docker run -p 3000:3000 node-cicd-demo
-________________________________________
-⚙️ GitHub Actions CI/CD
-Triggered On
-•	Push to main
-•	Pull request to main
-Pipeline Steps
-1.	Checkout repository
-2.	Install npm packages
-3.	Lint the code
-4.	Run unit tests
-5.	Compile TypeScript
-6.	Build Docker image
-7.	Scan Docker image with Trivy
-8.	Push image to GitHub Container Registry
-9.	Deploy to Kubernetes via kubectl
-________________________________________
-🔐 GitHub Secrets (Required)
-Secret Name	Description
-GHCR_USERNAME	Your GitHub username
-GHCR_TOKEN	Personal Access Token with write:packages permissions
-KUBE_CONFIG	Base64 encoded contents of your Kubernetes ~/.kube/config
-TRIVY_TOKEN	(Optional) Auth token if needed for Trivy
-________________________________________
+Copy
+Edit
+docker run -p 3000:3000 ghcr.io/<your-username>/node-cicd-demo:latest
 ☸️ Kubernetes Deployment
-To deploy manually:
-bash
-CopyEdit
-kubectl apply -f k8s/deployment.yaml
-________________________________________
-📜 NPM Scripts
-Script	Description
-npm run dev	Start app in development mode
-npm test	Run unit tests with Jest
-npm run lint	Run ESLint for code quality check
-npm run build	Compile TypeScript to JavaScript
-________________________________________
-📬 Support
-Have a question or issue?
-Open a GitHub Issue here: node-cicd-demo/issues
+Kubernetes manifests are located in the k8s/ directory.
 
+Apply Manifests
+bash
+Copy
+Edit
+kubectl apply -f k8s/
+Check Deployment Status
+bash
+Copy
+Edit
+kubectl get pods
+🔐 GitHub Secrets Configuration
+To enable the CI/CD pipeline, set the following secrets in your GitHub repository:
+
+GHCR_USERNAME: Your GitHub username.
+
+GHCR_TOKEN: A GitHub Personal Access Token with write:packages scope.
+
+KUBE_CONFIG: Base64-encoded Kubernetes config file content.
+Teco Tutorials
+
+🤝 Contributing
+Contributions are welcome! Please follow these steps:
+
+Fork the repository.
+
+Create a new branch: git checkout -b feature/your-feature-name.
+
+Commit your changes: git commit -m 'Add your feature'.
+
+Push to the branch: git push origin feature/your-feature-name.
+
+Open a pull request.
+
+📄 License
+This project is licensed under the MIT License.
+
+For more information, visit the GitHub repository.
