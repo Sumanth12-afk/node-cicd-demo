@@ -2,8 +2,7 @@
 This project is a complete CI/CD demonstration for a Node.js application using GitHub Actions, Docker, and Kubernetes. It automates testing, linting, building, scanning, and deploying the app to a Kubernetes cluster.
 ________________________________________
 📁 Folder Structure
-bash
-CopyEdit
+
 node-cicd-demo/
 ├── .github/workflows/        # GitHub Actions workflows
 │   └── main.yml              # CI/CD pipeline configuration
