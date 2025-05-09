@@ -6,39 +6,39 @@ bash
 Copy
 Edit
 node-cicd-demo/
-├── .github/workflows/        # GitHub Actions for CI/CD
-│   └── main.yml              # Main workflow file
+├── .github/workflows/        # GitHub Actions workflows
+│   └── main.yml              # CI/CD pipeline configuration
 ├── k8s/                      # Kubernetes manifests
-│   └── deployment.yaml       # Kubernetes deployment config
-├── src/                      # Application source code
-│   └── index.ts              # Main Node.js/Express file
-├── .eslintrc.json            # ESLint configuration
-├── babel.config.js           # Babel configuration for transpiling
-├── jest.config.js            # Jest test configuration
-├── tsconfig.json             # TypeScript compiler configuration
-├── Dockerfile                # Docker image build instructions
-├── package.json              # Node.js project metadata & scripts
-├── package-lock.json         # Dependency lock file
+│   └── deployment.yaml       # App deployment configuration
+├── src/                      # Node.js source code
+│   └── index.ts              # Entry point of the app
+├── .eslintrc.json            # ESLint config
+├── babel.config.js           # Babel transpiler config
+├── jest.config.js            # Jest unit test config
+├── tsconfig.json             # TypeScript config
+├── Dockerfile                # Docker image definition
+├── package.json              # Project dependencies & scripts
+├── package-lock.json         # Dependency versions
 └── README.md                 # Project documentation
 ✅ Features
-CI/CD pipeline using GitHub Actions
+GitHub Actions CI/CD pipeline
 
-Linting with ESLint
+TypeScript + Babel for development
 
-Unit testing with Jest
+ESLint for code quality
 
-TypeScript support
+Jest for unit testing
 
-Docker image build and push
+Docker containerization
 
 Vulnerability scanning with Trivy
 
-Kubernetes deployment via kubectl
+Kubernetes deployment via manifests
 
 🔧 Prerequisites
-Make sure you have the following installed:
+Make sure you have these installed:
 
-Node.js (v16+ recommended)
+Node.js (v16+)
 
 npm
 
@@ -46,13 +46,13 @@ Docker
 
 Git
 
-Kubernetes CLI (kubectl)
+kubectl
 
-GitHub account and access to GitHub Actions
+Trivy
 
-Trivy (for vulnerability scanning)
+GitHub account with Actions enabled
 
-🔨 Local Setup
+🛠️ Setup Instructions
 1. Clone the Repository
 bash
 Copy
@@ -64,12 +64,12 @@ bash
 Copy
 Edit
 npm install
-3. Run the App Locally
+3. Run the Application Locally
 bash
 Copy
 Edit
 npm run dev
-App will start on http://localhost:3000
+Visit http://localhost:3000 in your browser.
 
 🧪 Testing & Linting
 Run Tests
@@ -77,52 +77,53 @@ bash
 Copy
 Edit
 npm test
-Lint Code
+Lint the Code
 bash
 Copy
 Edit
 npm run lint
-🐳 Docker Build & Run
+🐳 Docker Commands
 Build Docker Image
 bash
 Copy
 Edit
 docker build -t node-cicd-demo .
-Run Container
+Run Docker Container
 bash
 Copy
 Edit
 docker run -p 3000:3000 node-cicd-demo
-⚙️ CI/CD Pipeline Overview
-The GitHub Actions workflow (.github/workflows/main.yml) is triggered on push or pull request to main.
+⚙️ GitHub Actions CI/CD
+Triggered On
+Push to main
 
-Pipeline Steps:
-Checkout Code
+Pull request to main
 
-Install Dependencies
+Pipeline Steps
+Checkout repository
 
-Linting
+Install npm packages
 
-Unit Testing
+Lint the code
 
-Build (Transpile)
+Run unit tests
 
-Docker Build
+Compile TypeScript
 
-Trivy Scan
+Build Docker image
 
-Push to GitHub Container Registry
+Scan Docker image with Trivy
 
-Deploy to Kubernetes using kubectl
+Push image to GitHub Container Registry
 
-🔐 GitHub Secrets Required
-Set the following secrets in your GitHub repo:
+Deploy to Kubernetes via kubectl
 
+🔐 GitHub Secrets (Required)
 Secret Name	Description
 GHCR_USERNAME	Your GitHub username
-GHCR_TOKEN	GitHub PAT with write:packages permission
-KUBE_CONFIG	Base64-encoded kubeconfig for your cluster
-TRIVY_TOKEN	(Optional) Token for Trivy (if needed)
+GHCR_TOKEN	Personal Access Token with write:packages permissions
+KUBE_CONFIG	Base64 encoded contents of your Kubernetes ~/.kube/config
+TRIVY_TOKEN	(Optional) Auth token if needed for Trivy
 
 ☸️ Kubernetes Deployment
 To deploy manually:
@@ -131,14 +132,13 @@ bash
 Copy
 Edit
 kubectl apply -f k8s/deployment.yaml
-The deployment file includes configuration for replicas, container image, ports, and more.
-
-📦 Scripts (from package.json)
+📜 NPM Scripts
 Script	Description
-dev	Start app using ts-node-dev
-lint	Run ESLint
-test	Run Jest unit tests
-build	Compile TypeScript to JS
+npm run dev	Start app in development mode
+npm test	Run unit tests with Jest
+npm run lint	Run ESLint for code quality check
+npm run build	Compile TypeScript to JavaScript
 
-📞 Contact
-For questions or support, please raise an issue in the repository.
+📬 Support
+Have a question or issue?
+Open a GitHub Issue here: node-cicd-demo/issues
