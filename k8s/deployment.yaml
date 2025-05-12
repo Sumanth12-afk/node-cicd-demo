@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: ghcr.io/sumanth12-afk/node-cicd-demo:sha-d2b834ea0c377d59efb65004ad2d12dfd8068bb7
+        image: ghcr.io/sumanth12-afk/node-cicd-demo:sha-2d4a67f2f0e7b5f697996d6159ad6f19e9cf4c7d
         ports:
         - containerPort: 3000
         resources:
