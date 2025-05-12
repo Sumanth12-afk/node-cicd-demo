@@ -1,91 +1,149 @@
-📦 Node.js CI/CD Demo
-A demo Node.js application that showcases how to set up a complete CI/CD pipeline using GitHub Actions. This project is designed to help developers understand the fundamentals of continuous integration and deployment in a Node.js environment.
+# 🚀 Node.js Microservice with CI/CD Pipeline
 
-🚀 Features
-Basic Node.js Express server
+This repository demonstrates a Node.js microservice integrated with a robust CI/CD pipeline using GitHub Actions. It encompasses best practices for development, testing, containerization, security scanning, and deployment.
 
-CI/CD pipeline using GitHub Actions
+---
 
-Runs on every push or pull request to main
+## 📦 Features
 
-Steps include installing dependencies, testing, and deployment placeholder
+- ✅ **Unit Testing** with [Jest](https://jestjs.io/)
+- 🧹 **Code Quality Checks** using [ESLint](https://eslint.org/)
+- 🛠️ **TypeScript Compilation**
+- 🐳 **Docker Image Creation** and push to GitHub Container Registry
+- 🔍 **Security Scanning** with [Trivy](https://aquasecurity.github.io/trivy/)
+- ☸️ **Automated Kubernetes Deployment Updates**
 
-Clean and customizable codebase
+---
 
-🧱 Project Structure
-.github/workflows/node.js.yml: GitHub Actions workflow configuration
+## 🛠️ Local Development
 
-app.js: Main server logic using Express.js
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-routes/: Contains route definitions
+2. **Run in Development Mode**
+   ```bash
+   npm run dev
+   ```
 
-views/: EJS templates for frontend rendering
+3. **Execute Tests**
+   ```bash
+   npm test
+   ```
 
-public/: Static frontend files
+4. **Lint the Codebase**
+   ```bash
+   npm run lint
+   ```
 
-package.json: Project metadata and dependency definitions
+5. **Build the Application**
+   ```bash
+   npm run build
+   ```
 
-README.md: Documentation
+---
 
-⚙️ Prerequisites
-Node.js installed (version 18 or above recommended)
+## ⚙️ CI/CD Pipeline Overview
 
-A GitHub account
+The CI/CD pipeline is configured using GitHub Actions and is triggered on:
 
-Basic understanding of Node.js and GitHub Actions
+- Push events to the `main` branch
+- Pull requests targeting the `main` branch
 
-Internet connection to pull dependencies
+### Pipeline Steps:
 
-🛠️ Setup and Execution
-Clone the repository to your local machine
+1. **Checkout Code**: Retrieves the latest code from the repository.
+2. **Set Up Node.js Environment**: Configures the Node.js version for the workflow.
+3. **Install Dependencies**: Installs project dependencies using `npm`.
+4. **Run Linting**: Checks code quality using ESLint.
+5. **Execute Tests**: Runs unit tests with Jest.
+6. **Build Project**: Compiles TypeScript to JavaScript.
+7. **Build Docker Image**: Creates a Docker image of the application.
+8. **Push to GitHub Container Registry**: Uploads the Docker image to GHCR.
+9. **Security Scan with Trivy**: Scans the Docker image for vulnerabilities.
+10. **Deploy to Kubernetes**: Updates the Kubernetes deployment with the new image.
 
-Navigate into the project directory
+---
 
-Install the dependencies using a package manager like npm or yarn
+## 📁 Project Structure
 
-Start the server
+```
+.
+├── .github/
+│   └── workflows/
+│       └── cicd.yml          # GitHub Actions workflow file
+├── k8s/                      # Kubernetes deployment manifests
+├── src/                      # Source code directory
+├── .eslintrc.json            # ESLint configuration
+├── Dockerfile                # Docker configuration
+├── jest.config.js            # Jest configuration
+├── package.json              # Project metadata and scripts
+├── tsconfig.json             # TypeScript configuration
+└── README.md                 # Project documentation
+```
 
-Open a browser and go to http://localhost:3000 to view the running app
+---
 
-🧪 Testing
-Testing setup is included and can be extended.
-You can add your own test cases in a test/ folder and link it through the GitHub Actions workflow.
+## 🔐 Secrets Configuration
 
-🤖 CI/CD Workflow
-The workflow file is located in .github/workflows/node.js.yml. It performs the following steps automatically on every push or pull request to the main branch:
+To enable the CI/CD pipeline, set the following secrets in your GitHub repository:
 
-Check out the repository code
+- `GHCR_USERNAME`: Your GitHub Container Registry username.
+- `GHCR_TOKEN`: A personal access token with `write:packages` scope.
+- `KUBE_CONFIG`: Base64-encoded Kubernetes configuration file for deployment access.
 
-Set up Node.js environment
+---
 
-Install project dependencies
+## 🧪 Testing
 
-Run test commands
+The project utilizes [Jest](https://jestjs.io/) for unit testing. Tests are located in the `src/` directory alongside the code they test. To run tests:
 
-Deploy the application (this is a placeholder and can be customized for platforms like Heroku, Vercel, or AWS)
+```bash
+npm test
+```
 
-🧰 Technologies Used
-Technology	Description
-Node.js	JavaScript runtime
-Express.js	Web framework
-EJS	Templating engine
-GitHub Actions	CI/CD automation
+---
 
-🤝 Contributing
-We welcome contributions to enhance this demo:
+## 🐳 Docker
 
-Fork the repository
+The `Dockerfile` is configured to:
 
-Create a new branch for your feature or fix
+- Use an official Node.js base image.
+- Set the working directory.
+- Copy project files.
+- Install dependencies.
+- Build the application.
+- Expose the application port.
+- Define the default command to run the app.
 
-Commit your changes with clear messages
+To build and run the Docker image locally:
 
-Push your branch and submit a pull request
+```bash
+docker build -t node-cicd-demo .
+docker run -p 3000:3000 node-cicd-demo
+```
 
-📄 License
-This project is licensed under the MIT License. You are free to use, modify, and distribute it with proper attribution.
+---
 
-📬 Contact
-Maintained by @Sumanth12-afk.
-Feel free to raise issues or open discussions for questions and suggestions.
+## ☸️ Kubernetes Deployment
 
+Kubernetes manifests are located in the `k8s/` directory. The deployment is configured to pull the latest Docker image from GitHub Container Registry. Ensure your Kubernetes cluster is configured to authenticate with GHCR.
+
+To apply the Kubernetes manifests:
+
+```bash
+kubectl apply -f k8s/
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙋‍♂️ Contact
+
+For questions or support, please open an issue in this repository or contact [Sumanth12-afk](https://github.com/Sumanth12-afk).
